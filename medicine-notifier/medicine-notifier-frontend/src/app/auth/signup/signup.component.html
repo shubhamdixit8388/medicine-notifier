@@ -1,3 +1,33 @@
-<p>
-  signup works!
-</p>
+<ion-content>
+  <div class="signup-form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="signForm">
+      <div class="signup-text">
+        Sign up
+      </div>
+      <ion-item lines="full">
+        <ion-label position="floating">Username</ion-label>
+        <ion-input type="text" formControlName="username"></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password"  formControlName="password"></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" type="submit" expand="block" [disabled]="signForm.invalid">Sign up</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button [routerLink]="['/auth/login']" expand="block" color="danger">Login</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </div>
+</ion-content>

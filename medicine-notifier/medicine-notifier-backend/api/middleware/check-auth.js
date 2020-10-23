@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     try{
-        // console.log('sdfsd: ', req.headers.authorization.split(' ')[1]);
-        const decoded = jwt.verify(req.query.token , 'secret-key');
+        const decoded = jwt.verify(req.headers.authorization.split(' ')[1] , 'secret-key');
         req.userData = decoded;
         next();
     }

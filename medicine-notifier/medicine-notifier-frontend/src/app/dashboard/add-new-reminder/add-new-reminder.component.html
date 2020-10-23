@@ -1,0 +1,39 @@
+<div class="add-new">
+  <app-header></app-header>
+  <div class="add-reminder">
+    <ion-card>
+      <ion-card-content>
+        <form (ngSubmit)="addReminder()" [formGroup]="addReminderForm">
+          <ion-item lines="full">
+            <ion-label position="floating">Medicine Name</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          <ion-item lines="full">
+            <ion-label position="floating">Description</ion-label>
+            <ion-input type="text" formControlName="description"></ion-input>
+          </ion-item>
+          <div>Image</div>
+          <div class="pill-image">
+            <img *ngFor="let image of pillImages" [src]="image.src" alt="pill" (click)="addImage(image.src)">
+          </div>
+          <ion-item>
+            <ion-label>Select time</ion-label>
+            <ion-datetime formControlName="time" name="time" display-timezone="utc" display-format="h:mm A"
+                          picker-format="h:mm A" placeholder="e.g. 5:46 PM"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Select start Date</ion-label>
+            <ion-datetime formControlName="startDate" name="startDate" placeholder="e.g. Oct 23, 2020"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label>Select end Date</ion-label>
+            <ion-datetime formControlName="endDate" name="endDate" placeholder="e.g. Oct 23, 2020"></ion-datetime>
+          </ion-item>
+          <ion-button class="add-reminder-btn" type="submit" color="success" [disabled]="!addReminderForm.valid">
+            Add reminder
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>

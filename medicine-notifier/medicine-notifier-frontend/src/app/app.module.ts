@@ -8,19 +8,36 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import {LoginComponent} from './auth/login/login.component';
+import {SignupComponent} from './auth/signup/signup.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MedicineService} from './dashboard/medicine.service';
+import {DashboardModule} from './dashboard/dashboard.module';
+import {RestApiService} from './shared/services/rest-api.service';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpConfigInterceptor} from "./shared/interceptor/http-config.interceptor";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+      AppComponent,
+      LoginComponent,
+      SignupComponent,
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+      ReactiveFormsModule,
+      DashboardModule,
+      HttpClientModule
   ],
   providers: [
+
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+      MedicineService, RestApiService
   ],
   bootstrap: [AppComponent]
 })

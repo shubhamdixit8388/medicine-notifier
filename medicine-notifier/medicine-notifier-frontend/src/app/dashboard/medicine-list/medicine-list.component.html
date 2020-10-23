@@ -1,0 +1,20 @@
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="addNewMedicineReminder()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+<app-header></app-header>
+<div class="medicine-list">
+  <ion-card *ngFor="let medicine of availableMedicines;">
+    <ion-item>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label>{{medicine.name}}</ion-label>
+      <ion-button fill="outline" slot="end">{{medicine.startDate | date}}</ion-button>
+    </ion-item>
+
+    <ion-card-content>
+      {{medicine.description}}
+    </ion-card-content>
+  </ion-card>
+
+</div>

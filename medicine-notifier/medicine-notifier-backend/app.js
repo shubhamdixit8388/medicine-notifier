@@ -2,13 +2,13 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-const productRoute = require('./api/routes/products');
-const orderRoute = require('./api/routes/orders');
 const userRoute = require('./api/routes/users');
+const medicineRoute = require('./api/routes/medicine');
 
-mongoose.connect("mongodb+srv://shopping-cart:mongo@8388@shopping-cart-ap75k.mongodb.net/<dbname>?retryWrites=true&w=majority",{useNewUrlParser: true, useUnifiedTopology: true },function(error){
+mongoose.connect("mongodb+srv://shubham:shubham8388@medicine-notifier.vv6ed.mongodb.net/<dbname>?" +
+    "retryWrites=true&w=majority",{useNewUrlParser: true, useUnifiedTopology: true },function(error){
     if(error){
         console.log("error: "+error);
     } else{ 
@@ -33,13 +33,12 @@ app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 
-app.use('/products', productRoute);
-app.use('/orders', orderRoute);
 app.use('/users', userRoute);
+app.use('/medicine', medicineRoute);
 
 app.use((req, res, next)=>{
     const error = new Error('Not Found');

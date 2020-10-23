@@ -16,10 +16,10 @@ router.get('/get-signup', checkAuth, (req, res, next) => {
 });
 
 router.post('/signup', (req, res, next) => {
-    User.find({email: req.body.email}).exec().then(result => {
+    User.find({username: req.body.username}).exec().then(result => {
         if(result.length >= 1){
             return res.status(409).json({
-                message: 'Email already exists'
+                message: 'Username already exists'
             });
         }
         else{
@@ -72,17 +72,23 @@ router.post('/login', (req, res, next) => {
                    email: result.email,
                    userId: result._id
                }, 'secret-key',{
-                   expiresIn: '1h'
+                   expiresIn: '10h'
                });
-               // secret key should be added to environment variable
-               return res.status(200).json({
-                   message: 'Authentcation Successful',
-                   token: token
+               User.find({username: req.body.username}).select('username email').exec().then(result => {
+                   return res.status(200).json({
+                       message: 'Authentcation Successful S',
+                       token: token,
+                       username: result[0].username,
+                       email: result[0].email
+                   });
+               })
+           } else {
+               return res.status(401).json({
+                   message: 'Authentcation failed'
                });
            }
-           return res.status(401).json({
-               message: 'Authentcation failed'
-           });
+
+
        });
    }) ;
 });

@@ -1,0 +1,21 @@
+.add-new {
+  display: inline;
+}
+.add-reminder {
+  margin-top: 60px;
+}
+.pill-image {
+  white-space: nowrap;
+  overflow-x: scroll;
+  img {
+    width: 70px;
+    height: 70px;
+    padding: 4px;
+    margin-top: 20px;
+  }
+}
+.add-reminder-btn {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  display: flex;
+}
