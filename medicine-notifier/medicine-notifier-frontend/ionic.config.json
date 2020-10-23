@@ -1,5 +1,8 @@
 {
   "name": "medicine-notifier",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

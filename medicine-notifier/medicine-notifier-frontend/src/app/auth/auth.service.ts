@@ -14,7 +14,7 @@ import {RestApiService} from '../shared/services/rest-api.service';
     providedIn: 'root'
 })
 export class AuthService {
-    private user: User;
+    private user: User = new User();
     authChange = new Subject<boolean>();
 
     constructor(private router: Router, private toastCtrl: ToastController,
@@ -45,7 +45,9 @@ export class AuthService {
         this.router.navigate(['auth/login']);
     }
     getUser() {
-        // return { ...this.user };
+        this.user.username = localStorage.getItem('username');
+        this.user.email = localStorage.getItem('email');
+        return this.user;
     }
     isAuth() {
         return localStorage.getItem('token');
@@ -55,9 +57,9 @@ export class AuthService {
         // @ts-ignore
         localStorage.setItem('token', user.token);
         // @ts-ignore
-        localStorage.setItem('username', user.email);
+        localStorage.setItem('username', user.username);
         // @ts-ignore
-        localStorage.setItem('email', user.username);
+        localStorage.setItem('email', user.email);
         this.router.navigate(['/dashboard/medicine-list']);
     }
     async showToast(message: string) {

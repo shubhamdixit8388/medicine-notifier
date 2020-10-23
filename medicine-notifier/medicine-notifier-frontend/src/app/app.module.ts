@@ -16,8 +16,6 @@ import {DashboardModule} from './dashboard/dashboard.module';
 import {RestApiService} from './shared/services/rest-api.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpConfigInterceptor} from './shared/interceptor/http-config.interceptor';
-import {NgxLoadersCssModule} from 'ngx-loaders-css';
-import {LoaderComponent} from './shared/components/loader/loader.component';
 
 @NgModule({
   declarations: [

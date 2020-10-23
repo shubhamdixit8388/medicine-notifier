@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Medicine} from '../../shared/models/medicine.model';
 import {MedicineService} from '../medicine.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
+import {User} from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-medicine-list',
@@ -11,16 +13,24 @@ import {Router} from '@angular/router';
 export class MedicineListComponent implements OnInit {
   availableMedicines: Medicine[];
   isLoaderShow = false;
+  user: User = new User();
 
-  constructor(private medicineService: MedicineService, private router: Router) { }
+  constructor(private medicineService: MedicineService, private router: Router, private authService: AuthService)
+  { }
 
   ngOnInit() {
+    this.user = this.authService.getUser();
     this.isLoaderShow = true;
-    this.medicineService.getMedicinesList().subscribe(medicines => {
+    this.medicineService.getMedicinesList();
+    this.medicineService.fetchedMedicines.subscribe(medicines => {
+      this.availableMedicines = medicines;
+      this.isLoaderShow = false;
+    });
+    /*this.medicineService.getMedicinesList().subscribe(medicines => {
       // @ts-ignore
       this.availableMedicines = medicines.result;
       this.isLoaderShow = false;
-    }, error => console.log('Error: ', error));
+    }, error => console.log('Error: ', error));*/
   }
 
   addNewMedicineReminder() {

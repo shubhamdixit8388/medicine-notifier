@@ -23,12 +23,8 @@
                           picker-format="h:mm A" placeholder="e.g. 5:46 PM"></ion-datetime>
           </ion-item>
           <ion-item>
-            <ion-label>Select start Date</ion-label>
-            <ion-datetime formControlName="startDate" name="startDate" placeholder="e.g. Oct 23, 2020"></ion-datetime>
-          </ion-item>
-          <ion-item>
-            <ion-label>Select end Date</ion-label>
-            <ion-datetime formControlName="endDate" name="endDate" placeholder="e.g. Oct 23, 2020"></ion-datetime>
+            <ion-label>Select date</ion-label>
+            <ion-datetime min="2020-10-23" formControlName="date" name="startDate" placeholder="e.g. Oct 23, 2020"></ion-datetime>
           </ion-item>
           <ion-button class="add-reminder-btn" type="submit" color="success" [disabled]="!addReminderForm.valid">
             Add reminder

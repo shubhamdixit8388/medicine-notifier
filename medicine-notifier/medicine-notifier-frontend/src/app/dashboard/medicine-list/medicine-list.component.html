@@ -4,18 +4,33 @@
   </ion-fab-button>
 </ion-fab>
 <app-header></app-header>
-<div class="medicine-list">
+<div class="medicine-list" *ngIf="availableMedicines && availableMedicines.length >= 1; else noData;">
   <ion-card *ngFor="let medicine of availableMedicines;">
     <ion-item>
-      <ion-icon name="pin" slot="start"></ion-icon>
+      <img [src]="medicine.shapeImgUrl" alt="logo">
       <ion-label>{{medicine.name}}</ion-label>
-      <ion-button fill="outline" slot="end">{{medicine.startDate | date}}</ion-button>
+      <div fill="outline" slot="end">
+        <span class="date-time">
+          <span class="d-block">
+            {{medicine.time | date :'h:mm a'}}
+          </span>
+          <span class="d-block date">
+            {{medicine.date | date}}
+          </span>
+        </span>
+
+      </div>
     </ion-item>
 
     <ion-card-content>
       {{medicine.description}}
     </ion-card-content>
   </ion-card>
-
 </div>
+<ng-template #noData>
+  <div class="no-data">
+    Hi, {{user.username}} <br>
+    Add reminder
+  </div>
+</ng-template>
 <app-loader *ngIf="isLoaderShow"></app-loader>

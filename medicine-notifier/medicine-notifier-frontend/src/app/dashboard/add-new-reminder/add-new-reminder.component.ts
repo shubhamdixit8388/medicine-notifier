@@ -15,9 +15,6 @@ export class AddNewReminderComponent implements OnInit {
   medicine = new Medicine();
   medicineReminder = new ReminderTime();
   pillImages: { src: string }[];
-  time: any;
-  startDate: any;
-  endDate: any;
   isLoaderShow = false;
 
   constructor(private medicineService: MedicineService) { }
@@ -28,8 +25,7 @@ export class AddNewReminderComponent implements OnInit {
       name: new FormControl('', {validators: Validators.required}),
       description: new FormControl('', {validators: [Validators.required]}),
       time: new FormControl(undefined, {validators: [Validators.required]}),
-      startDate: new FormControl(undefined, {validators: Validators.required}),
-      endDate: new FormControl(undefined, {validators: [Validators.required]})
+      date: new FormControl(undefined, {validators: Validators.required})
     });
     this.pillImages = this.medicineService.getPillImages();
   }
@@ -45,12 +41,23 @@ export class AddNewReminderComponent implements OnInit {
       this.medicine.status = 'in-progress';
       this.medicine.name = this.addReminderForm.get('name').value;
       this.medicine.description = this.addReminderForm.get('description').value;
-      this.medicine.startDate = this.addReminderForm.get('startDate').value;
-      this.medicine.endDate = this.addReminderForm.get('endDate').value;
 
+
+      /*console.log(typeof (this.addReminderForm.get('time').value));
+      const time = new Date(this.addReminderForm.get('time').value);
+      console.log('Time: ', time.getTime());
+      const date = new Date(this.addReminderForm.get('date').value);
+      console.log('Date: ', date.getTime());*/
+      console.log(new Date(this.addReminderForm.get('time').value).getHours());
+      console.log(new Date(this.addReminderForm.get('date').value));
+      this.medicine.time = (new Date(this.addReminderForm.get('time').value)).getTime();
+      this.medicine.date = (new Date(this.addReminderForm.get('date').value)).getTime();
+      console.log(this.medicine.time);
+      console.log(new Date(this.addReminderForm.get('date').value).getFullYear());
       /*this.medicineReminder.time = this.addReminderForm.get('time').value;
       this.medicineReminder.medicineId = this.addReminderForm.get('time').value;*/
       this.isLoaderShow = true;
+
       this.medicineService.addMedicineReminder(this.medicine).subscribe(result => {
         this.medicineService.showToast('Reminder added!!!').then();
         this.isLoaderShow = false;

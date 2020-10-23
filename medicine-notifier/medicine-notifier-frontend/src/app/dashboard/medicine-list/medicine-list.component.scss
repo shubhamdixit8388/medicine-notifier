@@ -1,4 +1,30 @@
 .medicine-list {
   margin-top: 52px;
-  overflow-y: scroll
+  overflow-y: scroll;
+  height: 100vh;
+  img {
+    height: 58px;
+    width: 58px;
+    border-radius: 30px;
+    margin: 12px;
+  }
+}
+.no-data {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+.date-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.date {
+  margin-top: 8px;
+}
+.d-block {
+  display: block;
 }

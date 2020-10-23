@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MedicineService} from './medicine.service';
-import {Medicine} from '../shared/models/medicine.model';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,17 +7,7 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  availableMedicines: Medicine[];
+  constructor() { }
 
-  constructor(private medicineService: MedicineService, private router: Router) { }
-
-  ngOnInit() {
-    this.medicineService.getMedicinesList().subscribe(medicines => {
-      console.log('medicines: ', medicines);
-    }, error => console.log('Error: ', error));
-  }
-
-  addNewMedicineReminder() {
-    this.router.navigate(['/add-reminder']);
-  }
+  ngOnInit() {}
 }

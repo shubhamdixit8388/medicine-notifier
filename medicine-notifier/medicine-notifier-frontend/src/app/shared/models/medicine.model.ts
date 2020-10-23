@@ -2,8 +2,8 @@ export class Medicine {
     id: string;
     name: string;
     description: string;
-    startDate: Date;
-    endDate: Date;
+    date: number;
+    time: number;
     shapeImgUrl: string;
     isActive: boolean;
     status: 'completed' | 'in-progress';
