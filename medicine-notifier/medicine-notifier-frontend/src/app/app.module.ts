@@ -15,13 +15,15 @@ import {MedicineService} from './dashboard/medicine.service';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {RestApiService} from './shared/services/rest-api.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {HttpConfigInterceptor} from "./shared/interceptor/http-config.interceptor";
+import {HttpConfigInterceptor} from './shared/interceptor/http-config.interceptor';
+import {NgxLoadersCssModule} from 'ngx-loaders-css';
+import {LoaderComponent} from './shared/components/loader/loader.component';
 
 @NgModule({
   declarations: [
       AppComponent,
       LoginComponent,
-      SignupComponent,
+      SignupComponent
   ],
   entryComponents: [],
   imports: [
@@ -33,7 +35,7 @@ import {HttpConfigInterceptor} from "./shared/interceptor/http-config.intercepto
       HttpClientModule
   ],
   providers: [
-
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

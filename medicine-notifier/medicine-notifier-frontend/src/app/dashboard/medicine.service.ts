@@ -46,7 +46,7 @@ export class MedicineService {
     }
 
     getMedicinesList() {
-        return this.medicines;
+        return this.restApiService.get('/medicine/medicines-list');
     }
 
     getPillImages() {

@@ -15,7 +15,9 @@ export class DashboardComponent implements OnInit {
   constructor(private medicineService: MedicineService, private router: Router) { }
 
   ngOnInit() {
-    this.availableMedicines = this.medicineService.getMedicinesList();
+    this.medicineService.getMedicinesList().subscribe(medicines => {
+      console.log('medicines: ', medicines);
+    }, error => console.log('Error: ', error));
   }
 
   addNewMedicineReminder() {

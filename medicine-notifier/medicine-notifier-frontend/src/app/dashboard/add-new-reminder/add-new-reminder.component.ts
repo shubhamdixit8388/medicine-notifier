@@ -18,10 +18,12 @@ export class AddNewReminderComponent implements OnInit {
   time: any;
   startDate: any;
   endDate: any;
+  isLoaderShow = false;
 
   constructor(private medicineService: MedicineService) { }
 
   ngOnInit() {
+
     this.addReminderForm = new FormGroup({
       name: new FormControl('', {validators: Validators.required}),
       description: new FormControl('', {validators: [Validators.required]}),
@@ -33,7 +35,7 @@ export class AddNewReminderComponent implements OnInit {
   }
 
   addImage(src: string) {
-    this.medicine.shapeImgUrl = src;
+      this.medicine.shapeImgUrl = src;
   }
 
 
@@ -48,9 +50,14 @@ export class AddNewReminderComponent implements OnInit {
 
       /*this.medicineReminder.time = this.addReminderForm.get('time').value;
       this.medicineReminder.medicineId = this.addReminderForm.get('time').value;*/
+      this.isLoaderShow = true;
       this.medicineService.addMedicineReminder(this.medicine).subscribe(result => {
         this.medicineService.showToast('Reminder added!!!').then();
-      }, error => this.medicineService.showToast('Failed to add reminder').then());
+        this.isLoaderShow = false;
+      }, error => {
+        this.medicineService.showToast('Failed to add reminder').then();
+        this.isLoaderShow = false;
+      });
     }
   }
 }

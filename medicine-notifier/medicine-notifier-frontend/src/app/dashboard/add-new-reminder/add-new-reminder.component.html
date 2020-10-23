@@ -1,6 +1,6 @@
 <div class="add-new">
   <app-header></app-header>
-  <div class="add-reminder">
+  <div class="add-reminder" [ngClass]="{'blur-background': isLoaderShow} ">
     <ion-card>
       <ion-card-content>
         <form (ngSubmit)="addReminder()" [formGroup]="addReminderForm">
@@ -14,7 +14,8 @@
           </ion-item>
           <div>Image</div>
           <div class="pill-image">
-            <img *ngFor="let image of pillImages" [src]="image.src" alt="pill" (click)="addImage(image.src)">
+            <img *ngFor="let image of pillImages" [src]="image.src" alt="pill"
+                 [ngClass]="{'selected-img': medicine.shapeImgUrl === image.src}" (click)="addImage(image.src)">
           </div>
           <ion-item>
             <ion-label>Select time</ion-label>
@@ -37,3 +38,4 @@
     </ion-card>
   </div>
 </div>
+<app-loader *ngIf="isLoaderShow"></app-loader>

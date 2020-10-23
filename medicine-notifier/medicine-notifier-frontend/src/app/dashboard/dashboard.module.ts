@@ -9,13 +9,16 @@ import {IonicModule} from '@ionic/angular';
 import {MedicineListComponent} from './medicine-list/medicine-list.component';
 import {HeaderComponent} from './header/header.component';
 import {HttpClientModule} from "@angular/common/http";
+import {SignupComponent} from "../auth/signup/signup.component";
+import {LoaderComponent} from "../shared/components/loader/loader.component";
 
 @NgModule({
     declarations: [
         DashboardComponent,
         AddNewReminderComponent,
         MedicineListComponent,
-        HeaderComponent
+        HeaderComponent,
+        LoaderComponent
     ],
     entryComponents: [],
     imports: [

@@ -1,23 +1,12 @@
 const mongoose = require('mongoose');
-const Order = require('../models/order');
 const Medicine = require('../models/medicine');
 
-exports.get_all_orders = (req, res, next) => {
-    Order.find().select('_id quantity product').populate('product', '_id name').exec().then(result => {
+exports.get_all_medicines_reminder = (req, res, next) => {
+    Medicine.find().then(result => {
         res.status(200).json({
             message: "All data Fetched",
             count: result.length,
-            orders: result.map(doc => {
-                return {
-                    _id: doc._id,
-                    quantity: doc.quantity,
-                    product: doc.product,
-                    result: {
-                        type: 'GET',
-                        url : 'localhost:3000/orders/' + doc._id
-                    }
-                }
-            })
+            result: result
         });
     }).catch(err => {
         res.status(500).json({

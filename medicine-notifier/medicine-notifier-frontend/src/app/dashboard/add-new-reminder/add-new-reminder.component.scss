@@ -3,15 +3,26 @@
 }
 .add-reminder {
   margin-top: 60px;
+  height: 100vh;
 }
 .pill-image {
   white-space: nowrap;
   overflow-x: scroll;
+  display: flex;
   img {
     width: 70px;
     height: 70px;
     padding: 4px;
     margin-top: 20px;
+    &.selected-img {
+      border: 4px darkgray solid;
+      padding: 2px;
+      width: 80px;
+      height: 80px;
+      margin-top: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
   }
 }
 .add-reminder-btn {

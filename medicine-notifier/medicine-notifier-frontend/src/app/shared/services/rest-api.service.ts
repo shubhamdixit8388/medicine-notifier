@@ -30,7 +30,7 @@ export class RestApiService {
 
     // HttpClient API get() method => Fetch employees list
     get(url) {
-        return this.http.get(this.apiURL + '/users/get-signup');
+        return this.http.get(this.apiURL + url, this.httpOptions);
     }
 
     // HttpClient API get() method => Fetch employee
