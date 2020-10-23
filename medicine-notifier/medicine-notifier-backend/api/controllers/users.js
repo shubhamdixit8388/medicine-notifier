@@ -1,0 +1,78 @@
+const User = require('../models/user');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+exports.signup = (req, res, next) => {
+    User.find({username: req.body.username}).exec().then(result => {
+        if(result.length >= 1){
+            return res.status(409).json({
+                message: 'Username already exists'
+            });
+        }
+        else{
+            bcrypt.hash(req.body.password, 10, (err, hash) => {
+                if(err){
+                    res.status(500).json({
+                        message: 'Failed to Sign Up',
+                        error: err
+                    });
+                }
+                else {
+                    const user = new User({
+                        _id: mongoose.Types.ObjectId(),
+                        username: req.body.username,
+                        email: req.body.email,
+                        password: hash
+                    });
+                    user.save().then(user => {
+                        res.status(200).json({
+                            message: 'Sign Up Successfully',
+                        });
+                    }).catch(err => {
+                        res.status(500).json({
+                            message: 'Failed to Sign Up',
+                            error: err
+                        });
+                    });
+                }
+            });
+        }
+    })
+}
+exports.login = (req, res, next) => {
+    User.findOne({username: req.body.username}).exec().then(result => {
+        if(!result){
+            return res.status(401).json({
+                message: 'Authentcation failed'
+            });
+        }
+        bcrypt.compare(req.body.password, result.password, (err, result) => {
+            if(err){
+                return res.status(401).json({
+                    message: 'Authentcation failed'
+                });
+            }
+            if(result){
+                const token = jwt.sign({
+                    email: result.email,
+                    userId: result._id
+                }, 'secret-key',{
+                    expiresIn: '10h'
+                });
+                User.find({username: req.body.username}).select('username email').exec().then(result => {
+                    return res.status(200).json({
+                        message: 'Authentcation Successful S',
+                        token: token,
+                        username: result[0].username,
+                        email: result[0].email
+                    });
+                })
+            } else {
+                return res.status(401).json({
+                    message: 'Authentcation failed'
+                });
+            }
+        });
+    }) ;
+}
