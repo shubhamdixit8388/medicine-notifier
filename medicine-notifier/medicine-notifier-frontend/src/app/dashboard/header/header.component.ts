@@ -8,11 +8,11 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit() {}
 
     gotoListingPage() {
-        this.router.navigate(['/dashboard/medicine-list']);
+        this.router.navigate(['/dashboard/medicine-list']).then();
     }
 }

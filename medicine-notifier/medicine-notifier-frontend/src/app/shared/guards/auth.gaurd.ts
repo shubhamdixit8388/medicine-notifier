@@ -12,8 +12,8 @@ export class AuthGaurd implements CanActivate {
         if (this.authService.isAuth()) {
             return true;
         } else {
-            this.authService.showToast('Login or create account if you don\'t have');
-            this.router.navigate(['auth/login']);
+            this.authService.showToast('Login or create account if you don\'t have').then();
+            this.router.navigate(['auth/login']).then();
         }
     }
 }

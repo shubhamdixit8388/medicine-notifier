@@ -26,15 +26,10 @@ export class MedicineListComponent implements OnInit {
       this.availableMedicines = medicines;
       this.isLoaderShow = false;
     });
-    /*this.medicineService.getMedicinesList().subscribe(medicines => {
-      // @ts-ignore
-      this.availableMedicines = medicines.result;
-      this.isLoaderShow = false;
-    }, error => console.log('Error: ', error));*/
   }
 
   addNewMedicineReminder() {
-    this.router.navigate(['dashboard/add-new']);
+    this.router.navigate(['dashboard/add-new']).then();
   }
 
 }

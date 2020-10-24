@@ -13,7 +13,10 @@ import {User} from "./shared/models/user.model";
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   user: User;
+  isLoggedIn = false;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -32,6 +35,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.authService.getUser();
+    if (this.authService.isAuth()) {
+      this.isLoggedIn = true;
+    }
   }
 
     onLogout() {
