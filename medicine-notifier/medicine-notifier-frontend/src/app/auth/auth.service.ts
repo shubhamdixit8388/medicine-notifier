@@ -19,7 +19,6 @@ export class AuthService {
 
     constructor(private router: Router, private toastCtrl: ToastController,
                 private restApiService: RestApiService) {
-        console.log(credentials);
     }
 
     signup(authData) {

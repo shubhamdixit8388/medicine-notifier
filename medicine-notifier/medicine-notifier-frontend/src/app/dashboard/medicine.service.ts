@@ -1,9 +1,9 @@
 import {Medicine} from '../shared/models/medicine.model';
-import {RestApiService} from "../shared/services/rest-api.service";
-import {ToastController} from "@ionic/angular";
-import {Injectable} from "@angular/core";
-import {interval, Subject, Subscription} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {RestApiService} from '../shared/services/rest-api.service';
+import {ToastController} from '@ionic/angular';
+import {Injectable} from '@angular/core';
+import {interval, Subject, Subscription} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class MedicineService {
@@ -22,11 +22,9 @@ export class MedicineService {
         {src: 'assets/pills-png/pill2.PNG'},
         {src: 'assets/pills-png/pill11.PNG'}];
 
-    id = '1';
-    mySub: Subscription;
+    intervalSub: Subscription;
     medicineDate: string;
     medicineTime: string;
-    // medicineTime: string;
     currentDate: Date;
     currentTime: string;
     currentDateConverted: string;
@@ -35,20 +33,12 @@ export class MedicineService {
         this.getMedicinesList();
         this.fetchedMedicines.subscribe(medicines => {
             if (medicines.length >= 1) {
-                this.medicineDate = new Date(medicines[0].date).getDate().toString() +
-                    new Date(medicines[0].date).getMonth().toString() +
-                    new Date(medicines[0].date).getFullYear().toString();
-                console.log(this.medicineDate);
-                console.log('new Date(medicines[0].time)L : ', new Date(medicines[0].time));
-                console.log('new Date(medicines[0].time)L : ', new Date());
-                this.medicineTime = new Date(medicines[0].time).getHours().toString() +
-                    new Date(medicines[0].time).getMinutes().toString() +
-                    new Date(medicines[0].time).getSeconds().toString();
-                console.log(this.medicineTime);
+                this.medicineDate = medicines[0].date;
+                this.medicineTime = medicines[0].time;
             }
         });
 
-        this.mySub = interval(10000).subscribe((func => {
+        this.intervalSub = interval(1000).subscribe((func => {
             this.currentDate = new Date();
             this.currentDateConverted = this.currentDate.getDate().toString() +
                 this.currentDate.getMonth().toString() +
@@ -56,18 +46,12 @@ export class MedicineService {
             this.currentTime = this.currentDate.getHours().toString() +
                 this.currentDate.getMinutes().toString() +
                 this.currentDate.getSeconds().toString();
-            console.log(this.currentDateConverted, this.medicineDate);
-            console.log(this.currentTime, this.medicineTime);
             if (this.currentDateConverted === this.medicineDate && this.medicineTime === this.currentTime) {
                 this.showToast('we achieved it!!!').then();
             }
         }));
     }
-    onIdSelect(id) {
-        this.http.post('https://jsonplaceholder.typicode.com/posts', id).subscribe((res => {
-            console.log(res);
-        }));
-    }
+
     getMedicinesList() {
         this.restApiService.get('/medicine/medicines-list').subscribe(async medicines => {
             // @ts-ignore
@@ -79,7 +63,15 @@ export class MedicineService {
 
     getFilteredMedicines(medicines: Medicine[]) {
         medicines.sort((a, b) => {
-            return a.date - b.date;
+            const fd = a.date.toLowerCase();
+            const sd = b.date.toLowerCase();
+            if (fd < sd) {
+                return -1;
+            }
+            if (fd > sd) {
+                return 1;
+            }
+            return 0;
         });
         return medicines;
     }
@@ -88,13 +80,17 @@ export class MedicineService {
         const firstValue = medicines[0];
         medicines.filter(res => res.date === firstValue.date)
             .sort((a, b) => {
-            return a.time - b.time;
+                const fd = a.time.toLowerCase();
+                const sd = b.time.toLowerCase();
+                if (fd < sd) {
+                    return -1;
+                }
+                if (fd > sd) {
+                    return 1;
+                }
+                return 0;
         });
         return medicines;
-    }
-
-    sort() {
-
     }
 
     getPillImages() {
